@@ -5,7 +5,7 @@ const Hello = () => {
   return (
     <div>
       <h1>Hello</h1>
-      <Link to="/changed">リンク→</Link>
+      <Link to="/changed">リンク → </Link>
     </div>
   );
 };
