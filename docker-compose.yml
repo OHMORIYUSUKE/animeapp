@@ -13,7 +13,8 @@ services:
       - ./backend/python:/var/www/
 
   frontend:
-    image: nginx
+    build: ./frontend
+    image: frontend
     container_name: frontend_container
     ports:
       - 8080:80
