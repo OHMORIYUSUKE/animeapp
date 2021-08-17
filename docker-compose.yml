@@ -41,7 +41,7 @@ services:
     # ローカルのnginxの設定ファイルをnginxのコンテナに反映
     volumes:
       - ./frontend/my-app/build:/var/www
-      - ./frontend/test:/var/www
+      #- ./frontend/test:/var/www
       - ./frontend/nginx/:/etc/nginx/conf.d/
     # 時刻を設定
     environment:
