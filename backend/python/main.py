@@ -34,12 +34,20 @@ def index(year,cool):
             # ogpの説明を取得する
             og_img = soup.find('meta', attrs={'property': 'og:image', 'content': True})
             if og_img is not None:
-                # dataにogpの画像のurlを追加
-                data['ogp_image_url'] = og_img['content']
-                # dataにogpの説明を追加
-                data['ogp_description'] = og_description['content']
-                print(og_description['content'])
-                print(og_img['content'])
+                r = requests.get(og_img['content'])
+                print(r.status_code)
+                if(r.status_code != 404):
+                    # dataにogpの画像のurlを追加
+                    data['ogp_image_url'] = og_img['content']
+                    # dataにogpの説明を追加
+                    data['ogp_description'] = og_description['content']
+                    print(og_description['content'])
+                    print(og_img['content'])
+                else:
+                    # 404でogpを取得できなかった時
+                    print('!!not found og:image tag!!')
+                    data['ogp_image_url'] = 'not_found'
+                    data['ogp_description'] = 'not_found'
             else:
                 # ogpを取得できなかった時
                 print('!!not found og:image tag!!')
