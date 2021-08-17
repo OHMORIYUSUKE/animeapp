@@ -5,11 +5,11 @@ import { Grid, GridItem, Box } from "@chakra-ui/react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import Header from "../components/Header";
 
-const Hello = () => {
+const Index = () => {
   return (
     <div>
       <Header />
-      <Box mt={6} mb={6} ml={3} mr={3}>
+      <Box mt={7} mb={7} ml={5} mr={5}>
         <FormControl id="when">
           <FormLabel>アニメの放送時期</FormLabel>
           <Select>
@@ -24,7 +24,7 @@ const Hello = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box mt={6} mb={6} ml={3} mr={3}>
+      <Box mt={7} mb={7} ml={5} mr={5}>
         <Grid templateColumns="repeat(4, 1fr)" gap={4}>
           {Array(20)
             .fill("")
@@ -33,9 +33,8 @@ const Hello = () => {
             ))}
         </Grid>
       </Box>
-      <Link to="/changed">リンク → </Link>
     </div>
   );
 };
 
-export default Hello;
+export default Index;
