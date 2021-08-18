@@ -13,8 +13,9 @@ import {
 } from "@chakra-ui/react";
 import Noimage from "../images/noimage.jpg";
 import { RiBuildingFill } from "react-icons/ri";
-import { BiLinkExternal } from "react-icons/bi";
+import { BiLinkExternal, BiBadgeCheck } from "react-icons/bi";
 import { BsHash } from "react-icons/bs";
+import { GrUserManager, GrUserFemale } from "react-icons/gr";
 import { FaTwitter } from "react-icons/fa";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -40,6 +41,10 @@ const View = () => {
     animeDataMatched.ogp_description = "";
   }
 
+  if (animeDataMatched.sequel === 0) {
+    animeDataMatched.sequel = 1;
+  }
+
   return (
     <>
       <Header />
@@ -52,33 +57,75 @@ const View = () => {
                 alt={animeDataMatched.title}
               />
             </Center>
-            <Text fontSize="3xl">{animeDataMatched.title}</Text>
-            <Text fontSize="md" color="gray.600">
+            <Text fontSize="3xl" mt={3}>
+              {animeDataMatched.title}
+            </Text>
+            <Text fontSize="md" color="gray.600" mb={3}>
               {animeDataMatched.title_en}
             </Text>
             <Divider />
-            <Text>
-              <RiBuildingFill
-                style={{ display: "inline-flex", verticalAlign: "middle" }}
-              />
-              {animeDataMatched.product_companies}
+            <Text fontSize="xl" mt={5} mb={5}>
+              {animeDataMatched.ogp_description}
             </Text>
-            <Text fontSize="xl">{animeDataMatched.ogp_description}</Text>
             <Flex>
-              <Text>
-                <BsHash
+              <Text fontSize="xl" mr={6}>
+                <RiBuildingFill
                   style={{ display: "inline-flex", verticalAlign: "middle" }}
                 />
-                {animeDataMatched.twitter_account}
+                {animeDataMatched.product_companies}
               </Text>
-              <Text>
-                <FaTwitter
-                  style={{ display: "inline-flex", verticalAlign: "middle" }}
-                />
-                {animeDataMatched.twitter_hash_tag}
+              <Text fontSize="xl" mr={6}>
+                全 {animeDataMatched.sequel} 期
+              </Text>
+              {animeDataMatched.sex ? (
+                <Text fontSize="xl">
+                  <GrUserFemale
+                    style={{ display: "inline-flex", verticalAlign: "middle" }}
+                  />
+                  女性向け
+                </Text>
+              ) : (
+                <Text fontSize="xl">
+                  <GrUserManager
+                    style={{ display: "inline-flex", verticalAlign: "middle" }}
+                  />{" "}
+                  男性向け
+                </Text>
+              )}
+            </Flex>
+            <Flex mt={2}>
+              <Text mr={6} fontSize="lg">
+                <Link
+                  href={
+                    "https://twitter.com/hashtag/" +
+                    animeDataMatched.twitter_hash_tag
+                  }
+                  color="teal.500"
+                >
+                  <BsHash
+                    style={{ display: "inline-flex", verticalAlign: "middle" }}
+                  />
+                  {animeDataMatched.twitter_hash_tag}
+                </Link>
+              </Text>
+              <Text mr={6} fontSize="lg">
+                <Link
+                  color="teal.500"
+                  href={
+                    "https://twitter.com/" + animeDataMatched.twitter_account
+                  }
+                >
+                  <FaTwitter
+                    style={{ display: "inline-flex", verticalAlign: "middle" }}
+                  />{" "}
+                  {animeDataMatched.title}{" "}
+                  <BiBadgeCheck
+                    style={{ display: "inline-flex", verticalAlign: "middle" }}
+                  />
+                </Link>
               </Text>
             </Flex>
-            <Text>
+            <Text fontSize="lg" mt={4}>
               <Link color="teal.500" href={animeDataMatched.public_url}>
                 公式サイト
                 <BiLinkExternal

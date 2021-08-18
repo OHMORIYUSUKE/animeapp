@@ -7,28 +7,29 @@ import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
+import { whenData, nowYearAndCool } from "../utils/formWen";
 
 const Index = () => {
   const [animeData, setAnimeData] = useState([]);
+
+  const [value, setValue] = React.useState(nowYearAndCool);
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  console.log(value);
+
   useEffect(() => {
     (async () => {
-      const when = "2017/2";
       try {
-        const res = await axios.get("http://localhost:3031/api/v1/" + when);
+        const res = await axios.get("http://localhost:3031/api/v1/" + value);
         localStorage.setItem("animeData", JSON.stringify(res.data));
         setAnimeData(res.data);
       } catch (err) {
         console.log(err);
       }
     })();
-  }, []);
-
-  const [value, setValue] = React.useState("");
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  console.log(value);
+  }, [value]);
 
   console.log(animeData);
 
@@ -39,15 +40,15 @@ const Index = () => {
         <Box mt={7} mb={7} ml={5} mr={5}>
           <FormControl id="when">
             <FormLabel>アニメの放送時期</FormLabel>
-            <Select value={value} onChange={handleChange}>
-              <option value={"2016/1"}>2016 / 春</option>
-              <option value={"2016/2"}>2016 / 夏</option>
-              <option value={"2016/3"}>2016 / 秋</option>
-              <option value={"2016/4"}>2016 / 冬</option>
-              <option value={"2017/1"}>2017 / 春</option>
-              <option value={"2017/2"}>2017 / 夏</option>
-              <option value={"2017/3"}>2017 / 秋</option>
-              <option value={"2017/4"}>2017 / 冬</option>
+            <Select
+              onChange={handleChange}
+              placeholder="知りたい放送時期を選択してください"
+            >
+              {whenData.map((data) => (
+                <option value={data.year + "/" + data.index}>
+                  {data.year} / {data.cool}アニメ
+                </option>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -65,15 +66,15 @@ const Index = () => {
       <Box mt={7} mb={7} ml={5} mr={5}>
         <FormControl id="when">
           <FormLabel>アニメの放送時期</FormLabel>
-          <Select>
-            <option value={"2016/1"}>2016 / 春</option>
-            <option value={"2016/2"}>2016 / 夏</option>
-            <option value={"2016/3"}>2016 / 秋</option>
-            <option value={"2016/4"}>2016 / 冬</option>
-            <option value={"2017/1"}>2017 / 春</option>
-            <option value={"2017/2"}>2017 / 夏</option>
-            <option value={"2017/3"}>2017 / 秋</option>
-            <option value={"2017/4"}>2017 / 冬</option>
+          <Select
+            onChange={handleChange}
+            placeholder="知りたい放送時期を選択してください"
+          >
+            {whenData.map((data) => (
+              <option value={data.year + "/" + data.index}>
+                {data.year} / {data.cool}アニメ
+              </option>
+            ))}
           </Select>
         </FormControl>
       </Box>
