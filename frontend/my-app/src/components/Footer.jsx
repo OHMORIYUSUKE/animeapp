@@ -13,7 +13,7 @@ export const Footer = () => (
   >
     <Stack>
       <Stack direction="row" spacing="4" align="center" justify="space-between">
-        <p style={{ fontSize: "large" }}>Anime Library</p>
+        <Text fontSize="xl">Anime Library</Text>
         <SocialMediaLinks />
       </Stack>
       <Text fontSize="sm" base="center" sm="start">

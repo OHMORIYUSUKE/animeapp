@@ -24,6 +24,8 @@ def index(year,cool):
     for data in json_data:
         # 取得したJSONにあるサイトのリンク
         print(data['public_url'])
+        print(data['title'].replace('/', '-'))
+        data['title'] = data['title'].replace('/', '-')
         try:
             url = data['public_url']
             # サイトのリンクからOGP画像、説明を取得
