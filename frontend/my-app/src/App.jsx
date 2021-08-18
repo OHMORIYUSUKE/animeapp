@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 import Index from "./Pages";
 import View from "./Pages/View";
-import NotFound from "./components/NotFound";
+import NotFound from "./Pages/NotFound";
 import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {

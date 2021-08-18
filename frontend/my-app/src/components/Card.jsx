@@ -18,7 +18,7 @@ function Card(props) {
       boxShadow="lg"
     >
       <Link to={"/anime/" + props.title}>
-        <Image src={imgUrl} alt={props.title} />
+        <Image src={imgUrl} alt={props.title} maxHeight="200px" />
 
         <Box p="6">
           <Box
