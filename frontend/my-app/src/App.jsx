@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter history={history}>
         <Switch>
           <Route exact path="/" component={Index} />
-          <Route exact path="/view/:name" render={() => <View />} />
+          <Route exact path="/anime/:name" render={() => <View />} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

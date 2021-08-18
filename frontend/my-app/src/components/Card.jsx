@@ -1,5 +1,6 @@
 import { Box, Image, Badge } from "@chakra-ui/react";
-import Noimage from "../images/noimage.png";
+import Noimage from "../images/noimage.jpg";
+import { Link } from "react-router-dom";
 
 function Card(props) {
   let imgUrl = "";
@@ -16,25 +17,27 @@ function Card(props) {
       overflow="hidden"
       boxShadow="lg"
     >
-      <Image src={imgUrl} alt={props.title} />
+      <Link to={"/anime/" + props.title}>
+        <Image src={imgUrl} alt={props.title} />
 
-      <Box p="6">
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {props.title}
-        </Box>
+        <Box p="6">
+          <Box
+            mt="1"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
+          >
+            {props.title}
+          </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {props.productCompanies}
+          <Box d="flex" mt="2" alignItems="center">
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              {props.productCompanies}
+            </Box>
           </Box>
         </Box>
-      </Box>
+      </Link>
     </Box>
   );
 }

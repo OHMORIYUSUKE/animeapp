@@ -14,6 +14,7 @@ const Index = () => {
       const when = "2021/2";
       try {
         const res = await axios.get("http://localhost:3031/api/v1/" + when);
+        localStorage.setItem("animeData", JSON.stringify(res.data));
         setAnimeData(res.data);
       } catch (err) {
         console.log(err);
@@ -41,22 +42,24 @@ const Index = () => {
           </Select>
         </FormControl>
       </Box>
-      <Grid templateColumns="repeat(4, 1fr)" gap={2}>
-        {animeData.map((data) => (
-          <Card
-            title={data.title}
-            titleEn={data.title_en}
-            productCompanies={data.product_companies}
-            ogpImageUrl={data.ogp_image_url}
-            ogpDescription={data.ogp_description}
-            publicUrl={data.public_url}
-            twitterAccount={data.twitter_account}
-            twitterHashTag={data.twitter_hash_tag}
-            sex={data.sex}
-            sequel={data.sequel}
-          />
-        ))}
-      </Grid>
+      <Box mt={7} mb={7} ml={5} mr={5}>
+        <Grid templateColumns="repeat(4, 1fr)" gap={2}>
+          {animeData.map((data) => (
+            <Card
+              title={data.title}
+              titleEn={data.title_en}
+              productCompanies={data.product_companies}
+              ogpImageUrl={data.ogp_image_url}
+              ogpDescription={data.ogp_description}
+              publicUrl={data.public_url}
+              twitterAccount={data.twitter_account}
+              twitterHashTag={data.twitter_hash_tag}
+              sex={data.sex}
+              sequel={data.sequel}
+            />
+          ))}
+        </Grid>
+      </Box>
       <Footer />
     </>
   );
