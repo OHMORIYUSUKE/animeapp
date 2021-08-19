@@ -10,20 +10,24 @@ import {
   Divider,
   Link,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import Noimage from "../images/noimage.jpg";
 import { RiBuildingFill } from "react-icons/ri";
 import { BiLinkExternal, BiBadgeCheck } from "react-icons/bi";
 import { BsHash } from "react-icons/bs";
+import { AiOutlineCaretLeft } from "react-icons/ai";
 import { GrUserManager, GrUserFemale } from "react-icons/gr";
 import { FaTwitter } from "react-icons/fa";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useHistory } from "react-router-dom";
 
 const View = () => {
   let { name } = useParams();
 
-  const JSONDATA = JSON.parse(localStorage.getItem("animeData"));
+  const when = localStorage.getItem("when");
+  const JSONDATA = JSON.parse(localStorage.getItem("animeData" + when));
 
   const getAnimeDataByName = (name) => {
     const animeIndex = JSONDATA.findIndex((data) => data.title === name);
@@ -44,6 +48,11 @@ const View = () => {
   if (animeDataMatched.sequel === 0) {
     animeDataMatched.sequel = 1;
   }
+
+  const history = useHistory();
+  const toTop = () => {
+    history.push("/");
+  };
 
   return (
     <>
@@ -135,6 +144,14 @@ const View = () => {
             </Text>
           </Box>
         </Container>
+      </Center>
+      <Center mt={10}>
+        <Button colorScheme="teal" variant="outline" size="lg" onClick={toTop}>
+          <AiOutlineCaretLeft
+            style={{ display: "inline-flex", verticalAlign: "middle" }}
+          />{" "}
+          戻る
+        </Button>
       </Center>
       <Footer />
     </>
