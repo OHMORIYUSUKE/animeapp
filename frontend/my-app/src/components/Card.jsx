@@ -1,4 +1,4 @@
-import { Box, Image, Badge } from "@chakra-ui/react";
+import { Box, Image, Badge, Center } from "@chakra-ui/react";
 import Noimage from "../images/noimage.jpg";
 import { Link } from "react-router-dom";
 
@@ -18,7 +18,9 @@ function Card(props) {
       boxShadow="lg"
     >
       <Link to={"/anime/" + props.title}>
-        <Image src={imgUrl} alt={props.title} maxHeight="200px" />
+        <Center>
+          <Image src={imgUrl} alt={props.title} maxHeight="200px" />
+        </Center>
 
         <Box p="6">
           <Box

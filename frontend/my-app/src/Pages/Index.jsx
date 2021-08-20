@@ -2,15 +2,25 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
-import { Grid, GridItem, Box, Text } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Box,
+  Text,
+  Alert,
+  AlertIcon,
+  Center,
+} from "@chakra-ui/react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
-import { whenData, nowYearAndCool } from "../utils/formWen";
+import { whenData, nowYearAndCool } from "../utils/formWhen";
+import { FiAlertTriangle } from "react-icons/fi";
 
 const Index = () => {
   const [animeData, setAnimeData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   let userSelectYearAndCool = "";
   if (localStorage.getItem("when")) {
@@ -29,20 +39,25 @@ const Index = () => {
     (async () => {
       try {
         if (localStorage.getItem("animeData" + value)) {
+          localStorage.setItem("when", value);
           const JSONDATA = JSON.parse(
             localStorage.getItem("animeData" + value)
           );
           setAnimeData(JSONDATA);
+        } else {
+          setIsLoading(true);
+          localStorage.setItem("when", value);
+          const res = await axios.get("http://localhost:3031/api/v1/" + value, {
+            timeout: 3000000,
+          });
+          localStorage.setItem("animeData" + value, JSON.stringify(res.data));
+          setAnimeData(res.data);
+          setIsLoading(false);
         }
-        if (localStorage.getItem("when")) {
-          const when = localStorage.getItem("when");
-          const JSONDATA = JSON.parse(localStorage.getItem("animeData" + when));
-          setAnimeData(JSONDATA);
-        }
-        const res = await axios.get("http://localhost:3031/api/v1/" + value);
-        localStorage.setItem("when", value);
+        const res = await axios.get("http://localhost:3031/api/v1/" + value, {
+          timeout: 3000000,
+        });
         localStorage.setItem("animeData" + value, JSON.stringify(res.data));
-        setAnimeData(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -51,9 +66,9 @@ const Index = () => {
 
   console.log(animeData);
 
-  const when = localStorage.getItem("when");
-  const yearNumber = when.slice(0, 4);
-  const coolNumber = when.slice(-1);
+  //const when = localStorage.getItem("when");
+  const yearNumber = userSelectYearAndCool.slice(0, 4);
+  const coolNumber = userSelectYearAndCool.slice(-1);
 
   let coolName = "";
   switch (coolNumber) {
@@ -70,7 +85,7 @@ const Index = () => {
       coolName = "秋";
   }
 
-  if (animeData.length === 0) {
+  if (isLoading) {
     return (
       <>
         <Header />
@@ -88,13 +103,59 @@ const Index = () => {
               ))}
             </Select>
           </FormControl>
-          <Text fontSize="lg" mt={3}>
+          <Alert status="warning" mt={3}>
+            <AlertIcon />
             {yearNumber + " / " + coolName}
-            アニメが表示されています。表示まで時間がかかることがあります。
-          </Text>
+            アニメ が選択されています。表示まで時間がかかることがあります。
+          </Alert>
         </Box>
         <Box mt={7} mb={7} ml={5} mr={5}>
           <Loading />
+        </Box>
+        <Footer />
+      </>
+    );
+  }
+
+  //データがないとき
+  if (animeData.message === "no_data") {
+    return (
+      <>
+        <Header />
+        <Box mt={7} mb={7} ml={5} mr={5}>
+          <FormControl id="when">
+            <FormLabel>アニメの放送時期</FormLabel>
+            <Select
+              onChange={handleChange}
+              placeholder="知りたい放送時期を選択してください"
+            >
+              {whenData.map((data) => (
+                <option value={data.year + "/" + data.index}>
+                  {data.year} / {data.cool}アニメ
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <Alert status="warning" mt={3}>
+            <AlertIcon />
+            {yearNumber + " / " + coolName}
+            アニメ が選択されています。表示まで時間がかかることがあります。
+          </Alert>
+        </Box>
+        <Box mt={7} mb={7} ml={5} mr={5}>
+          <Center mt={20}>
+            <Center bg="teal" h="200px" color="white" borderRadius="lg">
+              <Text fontSize="xl" pr={30} pl={30}>
+                <FiAlertTriangle
+                  style={{ display: "inline-flex", verticalAlign: "middle" }}
+                />
+                データがありません。 もう一度選択してください。
+                <FiAlertTriangle
+                  style={{ display: "inline-flex", verticalAlign: "middle" }}
+                />
+              </Text>
+            </Center>
+          </Center>
         </Box>
         <Footer />
       </>
@@ -118,10 +179,11 @@ const Index = () => {
             ))}
           </Select>
         </FormControl>
-        <Text fontSize="lg" mt={3}>
+        <Alert status="success" mt={3}>
+          <AlertIcon />
           {yearNumber + " / " + coolName}
-          アニメが表示されています。表示まで時間がかかることがあります。
-        </Text>
+          アニメ が表示されています。
+        </Alert>
       </Box>
       <Box mt={7} mb={7} ml={5} mr={5}>
         <Grid templateColumns="repeat(4, 1fr)" gap={2}>
