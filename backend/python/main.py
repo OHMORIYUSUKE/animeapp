@@ -18,6 +18,9 @@ def index(year,cool):
     response=requests.get('https://api.moemoe.tokyo/anime/v1/master/' + year + '/' + cool, headers=headers)
     # 取得したデータからJSONを取得
     json_data = response.json()
+    # print(json_data)
+    if(len(json_data) == 0):
+        return jsonify({'message': 'no_data'})
     # 最後に返すJSON
     json_data_addOGPimage = []
     #print(json_data)
@@ -25,7 +28,8 @@ def index(year,cool):
         # 取得したJSONにあるサイトのリンク
         print(data['public_url'])
         print(data['title'].replace('/', '-'))
-        data['title'] = data['title'].replace('/', '-')
+        data['title'] = data['title'].replace('/', '／')
+        data['title'] = data['title'].replace('?', '？')
         try:
             url = data['public_url']
             # サイトのリンクからOGP画像、説明を取得

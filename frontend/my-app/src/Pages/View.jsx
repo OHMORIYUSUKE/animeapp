@@ -81,7 +81,9 @@ const View = () => {
                 <RiBuildingFill
                   style={{ display: "inline-flex", verticalAlign: "middle" }}
                 />
-                {animeDataMatched.product_companies}
+                {animeDataMatched.product_companies !== ""
+                  ? animeDataMatched.product_companies
+                  : "制作会社不明"}
               </Text>
               <Text fontSize="xl" mr={6}>
                 全 {animeDataMatched.sequel} 期
