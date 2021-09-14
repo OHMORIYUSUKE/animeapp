@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
-import Index from "./Pages";
+import Index from "./Pages/Index";
 import View from "./Pages/View";
 import NotFound from "./Pages/NotFound";
 import { ChakraProvider } from "@chakra-ui/react";
