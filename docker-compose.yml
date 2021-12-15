@@ -36,7 +36,7 @@ services:
     container_name: frontend_container
     # ホストPCとコンテナのポートを共有
     ports:
-      - 8080:80
+      - 80:80
     # buildした静的ファイルをnginxの公開するディレクトリにコピー
     # ローカルのnginxの設定ファイルをnginxのコンテナに反映
     volumes:

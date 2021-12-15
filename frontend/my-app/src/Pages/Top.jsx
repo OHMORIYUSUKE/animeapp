@@ -18,7 +18,9 @@ import Loading from "../components/Loading";
 import { whenData, nowYearAndCool } from "../utils/formWhen";
 import { FiAlertTriangle } from "react-icons/fi";
 
-const Index = () => {
+const Top = () => {
+  const ipaddress = "localhost";
+
   const [animeData, setAnimeData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,16 +49,22 @@ const Index = () => {
         } else {
           setIsLoading(true);
           localStorage.setItem("when", value);
-          const res = await axios.get("http://localhost:3031/api/v1/" + value, {
-            timeout: 3000000,
-          });
+          const res = await axios.get(
+            `http://${ipaddress}:3031/api/v1/${value}`,
+            {
+              timeout: 3000000,
+            }
+          );
           localStorage.setItem("animeData" + value, JSON.stringify(res.data));
           setAnimeData(res.data);
           setIsLoading(false);
         }
-        const res = await axios.get("http://localhost:3031/api/v1/" + value, {
-          timeout: 3000000,
-        });
+        const res = await axios.get(
+          `http://${ipaddress}:3031/api/v1/${value}`,
+          {
+            timeout: 3000000,
+          }
+        );
         localStorage.setItem("animeData" + value, JSON.stringify(res.data));
       } catch (err) {
         console.log(err);
@@ -208,4 +216,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Top;
