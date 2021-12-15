@@ -19,7 +19,7 @@ import { whenData, nowYearAndCool } from "../utils/formWhen";
 import { FiAlertTriangle } from "react-icons/fi";
 
 const Top = () => {
-  const ipaddress = "localhost";
+  const ipaddress = "52.204.169.193";
 
   const [animeData, setAnimeData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
