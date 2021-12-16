@@ -4,7 +4,7 @@ FROM nginx:1.21.1
 COPY ./my-app/build /var/www
 #COPY ./test /var/www
 # ローカルのnginxの設定ファイルをnginxのコンテナに反映
-COPY ./nginx/ /etc/nginx/conf.d/
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # TimeZoneをAsia/Tokyoに設定する
 ENV TZ Asia/Tokyo
